@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!--<!DOCTYPE actor SYSTEM "actor.dtd">-->
+<application name="Osgi gateway">
+  <!-- Specify the application description, the actor domains   -->
+  <description>seven project</description>
+
+  <trace trace="true" logfile="logfile.log" />
+
+
+  <domain name="sevenDomain" actor="ActorDomain">
+
+    <scheduler name="mainSched" threads="1">
+      <actor type="ActorDomain" />
+    </scheduler>
+  </domain>
+
+
+  <actor name="seven" class="seven.impl.sevenSM" />
+
+
+  <!-- Specify the actor domain of which seven is part -->
+  <actor name="ActorDomain" class="org.coos.actorframe.ActorDomainSM">
+    <description>Domain for server</description>
+    <part actor="seven" instance="sevenActor"
+      visible="true" trace="debug" min="1" max="1" />
+  </actor>
+
+</application>
